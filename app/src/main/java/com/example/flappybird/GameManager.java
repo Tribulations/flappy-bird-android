@@ -5,10 +5,26 @@ import android.graphics.Canvas;
 public class GameManager
 {
     BgImage bgImage;
+    FlyingBird bird;
 
     public GameManager()
     {
         bgImage = new BgImage();
+        bird = new FlyingBird();
+    }
+
+    public void birdAnimation(Canvas canvas)
+    {
+        int currentFrame = bird.getCurrentFrame();
+        canvas.drawBitmap(AppHolder.getBitmapControl().getBird(currentFrame), bird.getBirdX(), bird.getBirdY(), null);
+        currentFrame++;
+
+        if(currentFrame > bird.maximumFrame)
+        {
+            currentFrame = 0;
+        }
+
+        bird.setCurrentFrame(currentFrame);
     }
 
     // dont let the background image leave the screen

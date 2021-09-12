@@ -27,11 +27,11 @@ public class MainThread extends Thread
             canvas = null;
             try
             {
-                canvas = surfaceHolder.lockCanvas();
-
                 synchronized (surfaceHolder)
                 {
+                    canvas = surfaceHolder.lockCanvas();
                     AppHolder.getGameManager().backgroundAnimation(canvas);
+                    AppHolder.getGameManager().birdAnimation(canvas);
                 }
 
             }
