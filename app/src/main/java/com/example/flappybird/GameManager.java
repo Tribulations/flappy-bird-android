@@ -16,7 +16,7 @@ public class GameManager
     {
         bgImage.setX(bgImage.getX() - bgImage.getVelocity());
 
-        if(bgImage.getX() < AppHolder.getBitmapControl().getBackgroundWidth())
+        if(bgImage.getX() < -AppHolder.getBitmapControl().getBackgroundWidth()) // why the minus sign in front of AppHolder here in the if statement? Needs to have a negative value?
         {
             bgImage.setX(0);
         }
