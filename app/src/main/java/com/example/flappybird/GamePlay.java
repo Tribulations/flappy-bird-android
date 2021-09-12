@@ -1,6 +1,7 @@
 package com.example.flappybird;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -49,5 +50,14 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback
 
             retry = false;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        AppHolder.getGameManager().gameState = 1;
+        AppHolder.getGameManager().bird.setVelocity(AppHolder.JUMP_VELOCITY);
+
+        return true;
     }
 }

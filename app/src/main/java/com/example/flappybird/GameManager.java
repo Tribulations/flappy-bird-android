@@ -6,21 +6,26 @@ public class GameManager
 {
     BgImage bgImage;
     FlyingBird bird;
+    static int gameState;
 
     public GameManager()
     {
         bgImage = new BgImage();
         bird = new FlyingBird();
+        gameState = 0;
     }
 
     public void birdAnimation(Canvas canvas)
     {
-        // apply gravity
-        if(bird.getBirdY() < (AppHolder.SCREEN_HEIGHT_Y - AppHolder.getBitmapControl().getBirdHeight() )
-                || bird.getVelocity() < 0)
+        if(gameState == 1)
         {
-            bird.setVelocity(bird.getVelocity() + AppHolder.gravityPull);
-            bird.setBirdY(bird.getBirdY() + bird.getVelocity());
+            // apply gravity
+            if(bird.getBirdY() < (AppHolder.SCREEN_HEIGHT_Y - AppHolder.getBitmapControl().getBirdHeight() )
+                    || bird.getVelocity() < 0)
+            {
+                bird.setVelocity(bird.getVelocity() + AppHolder.gravityPull);
+                bird.setBirdY(bird.getBirdY() + bird.getVelocity());
+            }
         }
 
         int currentFrame = bird.getCurrentFrame();

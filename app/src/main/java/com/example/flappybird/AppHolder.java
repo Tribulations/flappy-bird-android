@@ -12,6 +12,7 @@ public class AppHolder
     static int SCREEN_WIDTH_X;
     static int SCREEN_HEIGHT_Y;
     static int gravityPull;
+    static int JUMP_VELOCITY;
 
     public static void assign(Context context)
     {
@@ -25,6 +26,7 @@ public class AppHolder
     public static void holdGameVariables()
     {
         AppHolder.gravityPull = 5;
+        JUMP_VELOCITY =- 50;
     }
 
     public static BitmapControl getBitmapControl()
