@@ -19,6 +19,7 @@ public class AppHolder
     static int minimumTubeCollection_Y;
     static int maximumTubeCollection_Y;
     static int tubeDistance;
+    static Context gameActivityContext;
 
     public static void assign(Context context)
     {

@@ -1,14 +1,19 @@
 package com.example.flappybird;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GameManager
 {
+    private static final String TAG = "GameManager";
+    
     BgImage bgImage;
     FlyingBird bird;
     static int gameState;
@@ -57,6 +62,19 @@ public class GameManager
 
     public void scrollingTube(Canvas canvas)
     {
+        Log.d(TAG, "scrollingTube: called");
+        
+        // collisions
+        if((tubeCollections.get(winningTube).getXTube() < bird.getBirdX() + AppHolder.getBitmapControl().getBirdWidth())
+        && (tubeCollections.get(winningTube).getUpTubeCollection_Y() > bird.getBirdY()
+        || tubeCollections.get(winningTube).getDownTube_Y() < ( bird.getBirdY() + AppHolder.getBitmapControl().getBirdHeight())) )
+        {
+            gameState = 2;
+            Context mContext = AppHolder.gameActivityContext;
+            Intent mIntent = new Intent(mContext, GameOverActivity.class);
+            mContext.startActivity(mIntent);
+        }
+
         if(gameState == 1)
         {
             // check if left side of bird is past the right side of a tube.
