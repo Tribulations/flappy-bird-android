@@ -75,7 +75,7 @@ public class MainThread extends Thread
         return running;
     }
 
-    public void setIsRuning(boolean state)
+    public void setIsRunning(boolean state)
     {
         running = state;
     }
