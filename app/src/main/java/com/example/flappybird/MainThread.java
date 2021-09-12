@@ -32,6 +32,7 @@ public class MainThread extends Thread
                     canvas = surfaceHolder.lockCanvas();
                     AppHolder.getGameManager().backgroundAnimation(canvas);
                     AppHolder.getGameManager().birdAnimation(canvas);
+                    AppHolder.getGameManager().scrollingTube(canvas);
                 }
 
             }

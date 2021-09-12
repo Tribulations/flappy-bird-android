@@ -2,17 +2,66 @@ package com.example.flappybird;
 
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GameManager
 {
     BgImage bgImage;
     FlyingBird bird;
     static int gameState;
+    ArrayList<TubeCollection> tubeCollections;
+    Random rand;
 
     public GameManager()
     {
         bgImage = new BgImage();
         bird = new FlyingBird();
         gameState = 0;
+        tubeCollections = new ArrayList<>();
+        rand = new Random();
+        generateTubeObject();
+    }
+
+    public void generateTubeObject()
+    {
+        for(int i = 0; i < AppHolder.tubeNumbers; ++i)
+        {
+            int tubeX = AppHolder.SCREEN_WIDTH_X + i * AppHolder.tubeDistance;
+            int upTubeCollectionY = AppHolder.minimumTubeCollection_Y;
+            rand.nextInt(AppHolder.maximumTubeCollection_Y - AppHolder.minimumTubeCollection_Y + 1);
+            TubeCollection tubeCollection = new TubeCollection(tubeX, upTubeCollectionY);
+            tubeCollections.add(tubeCollection);
+        }
+    }
+
+    public void scrollingTube(Canvas canvas)
+    {
+        if(gameState == 1)
+        {
+            for(int i = 0; i < AppHolder.tubeNumbers; ++i)
+            {
+                if(tubeCollections.get(i).getXTube() < -AppHolder.getBitmapControl().getTubeWidth())
+                {
+                    tubeCollections.get(i).setXTube(tubeCollections.get(i).getXTube()
+                    + AppHolder.tubeNumbers * AppHolder.tubeDistance);
+
+                    int upTubeCollectionY = AppHolder.minimumTubeCollection_Y +
+                            rand.nextInt(AppHolder.maximumTubeCollection_Y - AppHolder.minimumTubeCollection_Y + 1);
+
+                    tubeCollections.get(i).setUpTubeCollection_Y(upTubeCollectionY);
+                }
+
+                tubeCollections.get(i).setXTube(tubeCollections.get(i).getXTube() - AppHolder.tubeVelocity);
+
+                // draw the upTube and downTube on the canvas
+                canvas.drawBitmap(AppHolder.getBitmapControl().getUpTube(), tubeCollections.get(i).getXTube(),
+                        tubeCollections.get(i).getUpTube_Y(), null);
+
+                canvas.drawBitmap(AppHolder.getBitmapControl().getDownTube(), tubeCollections.get(i).getXTube(),
+                        tubeCollections.get(i).getDownTube_Y(), null);
+            }
+        }
     }
 
     public void birdAnimation(Canvas canvas)
