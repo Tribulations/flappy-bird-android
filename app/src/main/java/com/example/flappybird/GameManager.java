@@ -1,6 +1,8 @@
 package com.example.flappybird;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +14,9 @@ public class GameManager
     static int gameState;
     ArrayList<TubeCollection> tubeCollections;
     Random rand;
+    int scoreCount;
+    int winningTube;
+    Paint designPaint; // show the score
 
     public GameManager()
     {
@@ -21,6 +26,21 @@ public class GameManager
         tubeCollections = new ArrayList<>();
         rand = new Random();
         generateTubeObject();
+        scoreCount = 0;
+        winningTube = 0;
+
+        // format the score text
+        initScoreVariables();
+    }
+
+    public void initScoreVariables()
+    {
+        designPaint = new Paint();
+        designPaint.setColor(Color.YELLOW);
+        designPaint.setTextSize(250);
+        designPaint.setStyle(Paint.Style.FILL);
+        designPaint.setFakeBoldText(true);
+        designPaint.setShadowLayer(5.0f, 20.0f, 20.0f, Color.BLACK);
     }
 
     public void generateTubeObject()
@@ -39,6 +59,17 @@ public class GameManager
     {
         if(gameState == 1)
         {
+            // check if left side of bird is past the right side of a tube.
+            if(tubeCollections.get(winningTube).getXTube() < bird.getBirdX() - AppHolder.getBitmapControl().getTubeWidth())
+            {
+                scoreCount++;
+                winningTube++;
+                if(winningTube > AppHolder.tubeNumbers - 1)
+                {
+                    winningTube = 0;
+                }
+            }
+
             for(int i = 0; i < AppHolder.tubeNumbers; ++i)
             {
                 if(tubeCollections.get(i).getXTube() < -AppHolder.getBitmapControl().getTubeWidth())
@@ -61,6 +92,9 @@ public class GameManager
                 canvas.drawBitmap(AppHolder.getBitmapControl().getDownTube(), tubeCollections.get(i).getXTube(),
                         tubeCollections.get(i).getDownTube_Y(), null);
             }
+
+            // render the score
+            canvas.drawText("" + scoreCount, 620, 400, designPaint);
         }
     }
 
