@@ -11,13 +11,20 @@ public class AppHolder
     static GameManager gameManager;
     static int SCREEN_WIDTH_X;
     static int SCREEN_HEIGHT_Y;
+    static int gravityPull;
 
     public static void assign(Context context)
     {
         // the mapScreenSize method needs to be called first
         mapScreenSize(context);
         bitmapControl = new BitmapControl(context.getResources());
+        holdGameVariables();
         gameManager = new GameManager();
+    }
+
+    public static void holdGameVariables()
+    {
+        AppHolder.gravityPull = 5;
     }
 
     public static BitmapControl getBitmapControl()

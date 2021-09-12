@@ -15,6 +15,14 @@ public class GameManager
 
     public void birdAnimation(Canvas canvas)
     {
+        // apply gravity
+        if(bird.getBirdY() < (AppHolder.SCREEN_HEIGHT_Y - AppHolder.getBitmapControl().getBirdHeight() )
+                || bird.getVelocity() < 0)
+        {
+            bird.setVelocity(bird.getVelocity() + AppHolder.gravityPull);
+            bird.setBirdY(bird.getBirdY() + bird.getVelocity());
+        }
+
         int currentFrame = bird.getCurrentFrame();
         canvas.drawBitmap(AppHolder.getBitmapControl().getBird(currentFrame), bird.getBirdX(), bird.getBirdY(), null);
         currentFrame++;
