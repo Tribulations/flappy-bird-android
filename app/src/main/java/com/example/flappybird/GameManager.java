@@ -23,5 +23,11 @@ public class GameManager
 
         // draw bitmap on canvas
         canvas.drawBitmap(AppHolder.getBitmapControl().getBackground(), bgImage.getX(), bgImage.getY(), null);
+
+        if(bgImage.getX() < - (AppHolder.getBitmapControl().getBackgroundWidth() - AppHolder.SCREEN_WIDTH_X) )
+        {
+            canvas.drawBitmap(AppHolder.getBitmapControl().getBackground(), bgImage.getX() +
+                    AppHolder.getBitmapControl().getBackgroundWidth(), bgImage.getY(), null);
+        }
     }
 }

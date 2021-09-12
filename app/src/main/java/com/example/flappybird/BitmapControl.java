@@ -11,6 +11,7 @@ public class BitmapControl
     public BitmapControl(Resources res)
     {
         background = BitmapFactory.decodeResource(res, R.drawable.background);
+        background = imageScale(background);
     }
 
     public Bitmap getBackground()
@@ -26,5 +27,12 @@ public class BitmapControl
     public int getBackgroundHeight()
     {
         return background.getHeight();
+    }
+
+    public Bitmap imageScale(Bitmap bitmap)
+    {
+        float widthHeightRatio = getBackgroundWidth() / getBackgroundHeight();
+        int bgScaleWidth = (int) widthHeightRatio * AppHolder.SCREEN_WIDTH_X;
+        return Bitmap.createScaledBitmap(bitmap, bgScaleWidth, AppHolder.SCREEN_HEIGHT_Y, false);
     }
 }
