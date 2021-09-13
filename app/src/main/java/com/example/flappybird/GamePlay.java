@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 public class GamePlay extends SurfaceView implements SurfaceHolder.Callback
 {
 
-    private MainThread mainThread;
+    MainThread mainThread;
 
     public GamePlay(Context context)
     {
@@ -55,9 +55,17 @@ public class GamePlay extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        AppHolder.getGameManager().gameState = 1;
-        AppHolder.getGameManager().bird.setVelocity(AppHolder.JUMP_VELOCITY);
+        if(AppHolder.getGameManager().gameState == 0)
+        {
+            AppHolder.getGameManager().gameState = 1;
+            AppHolder.getSoundPlayer().playSwoosh();
+        }
+        else
+        {
+            AppHolder.getSoundPlayer().playWing();
+        }
 
+        AppHolder.getGameManager().bird.setVelocity(AppHolder.JUMP_VELOCITY);
         return true;
     }
 }

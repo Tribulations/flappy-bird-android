@@ -20,6 +20,7 @@ public class AppHolder
     static int maximumTubeCollection_Y;
     static int tubeDistance;
     static Context gameActivityContext;
+    static SoundPlayer soundPlayer;
 
     public static void assign(Context context)
     {
@@ -28,17 +29,23 @@ public class AppHolder
         bitmapControl = new BitmapControl(context.getResources());
         holdGameVariables();
         gameManager = new GameManager();
+        soundPlayer = new SoundPlayer(context);
+    }
+
+    public static SoundPlayer getSoundPlayer()
+    {
+        return soundPlayer;
     }
 
     public static void holdGameVariables()
     {
         AppHolder.gravityPull = 5;
-        JUMP_VELOCITY =- 50;
+        AppHolder.JUMP_VELOCITY =- 40;
         AppHolder.tubeGap = 650;
-        tubeNumbers = 2;
-        tubeVelocity = 24;
-        minimumTubeCollection_Y = (int) (AppHolder.tubeGap / 2.0);
-        maximumTubeCollection_Y = AppHolder.SCREEN_HEIGHT_Y - AppHolder.minimumTubeCollection_Y - AppHolder.tubeGap;
+        AppHolder.tubeNumbers = 2;
+        AppHolder.tubeVelocity = 24;
+        AppHolder.minimumTubeCollection_Y = (int) (AppHolder.tubeGap / 2.0);
+        AppHolder.maximumTubeCollection_Y = AppHolder.SCREEN_HEIGHT_Y - AppHolder.minimumTubeCollection_Y - AppHolder.tubeGap;
         AppHolder.tubeDistance = AppHolder.SCREEN_WIDTH_X * 2 / 3;
     }
 

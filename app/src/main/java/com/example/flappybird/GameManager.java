@@ -32,15 +32,14 @@ public class GameManager
         tubeCollections = new ArrayList<>();
         rand = new Random();
         generateTubeObject();
-        scoreCount = 0;
-        winningTube = 0;
-
         // format the score text
         initScoreVariables();
     }
 
     public void initScoreVariables()
     {
+        scoreCount = 0;
+        winningTube = 0;
         designPaint = new Paint();
         designPaint.setColor(Color.YELLOW);
         designPaint.setTextSize(250);
@@ -64,28 +63,34 @@ public class GameManager
     public void scrollingTube(Canvas canvas)
     {
         Log.d(TAG, "scrollingTube: called");
-        
-        // collisions
-        if((tubeCollections.get(winningTube).getXTube() < bird.getBirdX() + AppHolder.getBitmapControl().getBirdWidth())
-        && (tubeCollections.get(winningTube).getUpTubeCollection_Y() > bird.getBirdY()
-        || tubeCollections.get(winningTube).getDownTube_Y() < ( bird.getBirdY() + AppHolder.getBitmapControl().getBirdHeight())) )
-        {
-            gameState = 2;
-            Context mContext = AppHolder.gameActivityContext;
-            Intent mIntent = new Intent(mContext, GameOverActivity.class);
-
-            mIntent.putExtra("score", scoreCount);
-            mContext.startActivity(mIntent);
-            ((Activity)mContext).finish();
-        }
 
         if(gameState == 1)
         {
+            // collisions
+            if((tubeCollections.get(winningTube).getXTube() < bird.getBirdX() + AppHolder.getBitmapControl().getBirdWidth())
+                    && (tubeCollections.get(winningTube).getUpTubeCollection_Y() > bird.getBirdY()
+                    || tubeCollections.get(winningTube).getDownTube_Y() < ( bird.getBirdY() + AppHolder.getBitmapControl().getBirdHeight())) )
+            {
+                gameState = 2;
+
+                AppHolder.getSoundPlayer().playChrash();
+
+                Context mContext = AppHolder.gameActivityContext;
+                Intent mIntent = new Intent(mContext, GameOverActivity.class);
+
+                mIntent.putExtra("score", scoreCount);
+                mContext.startActivity(mIntent);
+                ((Activity)mContext).finish();
+            }
+
             // check if left side of bird is past the right side of a tube.
             if(tubeCollections.get(winningTube).getXTube() < bird.getBirdX() - AppHolder.getBitmapControl().getTubeWidth())
             {
                 scoreCount++;
                 winningTube++;
+                // play score sound
+                AppHolder.getSoundPlayer().playPing();
+
                 if(winningTube > AppHolder.tubeNumbers - 1)
                 {
                     winningTube = 0;
@@ -116,7 +121,7 @@ public class GameManager
             }
 
             // render the score
-            canvas.drawText("" + scoreCount, 620, 400, designPaint);
+            canvas.drawText(String.valueOf(scoreCount), AppHolder.SCREEN_WIDTH_X / 2  - AppHolder.getBitmapControl().getBirdWidth() / 2, 400, designPaint);
         }
     }
 
