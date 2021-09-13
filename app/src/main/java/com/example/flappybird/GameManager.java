@@ -1,5 +1,6 @@
 package com.example.flappybird;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -72,7 +73,10 @@ public class GameManager
             gameState = 2;
             Context mContext = AppHolder.gameActivityContext;
             Intent mIntent = new Intent(mContext, GameOverActivity.class);
+
+            mIntent.putExtra("score", scoreCount);
             mContext.startActivity(mIntent);
+            ((Activity)mContext).finish();
         }
 
         if(gameState == 1)
