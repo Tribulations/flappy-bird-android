@@ -7,12 +7,23 @@ public class TubeCollection
     private int xTube;
     private int upTubeCollection_Y;
     private Random rand;
+    private int coloredTube;
 
     public TubeCollection(int xTube, int upTubeCollection_Y)
     {
         this.xTube = xTube;
         this.upTubeCollection_Y = upTubeCollection_Y;
         rand = new Random();
+    }
+
+    public void setColoredTube()
+    {
+        coloredTube = rand.nextInt(2);
+    }
+
+    public int getColoredTube()
+    {
+        return coloredTube;
     }
 
     public int getXTube()

@@ -108,16 +108,28 @@ public class GameManager
                             rand.nextInt(AppHolder.maximumTubeCollection_Y - AppHolder.minimumTubeCollection_Y + 1);
 
                     tubeCollections.get(i).setUpTubeCollection_Y(upTubeCollectionY);
+
+                    tubeCollections.get(i).setColoredTube();
                 }
 
                 tubeCollections.get(i).setXTube(tubeCollections.get(i).getXTube() - AppHolder.tubeVelocity);
 
-                // draw the upTube and downTube on the canvas
-                canvas.drawBitmap(AppHolder.getBitmapControl().getUpTube(), tubeCollections.get(i).getXTube(),
-                        tubeCollections.get(i).getUpTube_Y(), null);
+                if(tubeCollections.get(i).getColoredTube() == 0)
+                {
+                    // draw the upTube and downTube on the canvas
+                    canvas.drawBitmap(AppHolder.getBitmapControl().getUpTube(), tubeCollections.get(i).getXTube(),
+                            tubeCollections.get(i).getUpTube_Y(), null);
 
-                canvas.drawBitmap(AppHolder.getBitmapControl().getDownTube(), tubeCollections.get(i).getXTube(),
-                        tubeCollections.get(i).getDownTube_Y(), null);
+                    canvas.drawBitmap(AppHolder.getBitmapControl().getDownTube(), tubeCollections.get(i).getXTube(),
+                            tubeCollections.get(i).getDownTube_Y(), null);
+                }
+                else
+                {
+                    // draw colored tube
+                    canvas.drawBitmap(AppHolder.getBitmapControl().getUpColoredTube(), tubeCollections.get(i).getXTube(), tubeCollections.get(i).getUpTube_Y(), null);
+
+                    canvas.drawBitmap(AppHolder.getBitmapControl().getDownColoredTube(), tubeCollections.get(i).getXTube(), tubeCollections.get(i).getDownTube_Y(), null);
+                }
             }
 
             // render the score

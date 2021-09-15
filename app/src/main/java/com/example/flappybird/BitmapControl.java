@@ -11,6 +11,7 @@ public class BitmapControl
     Bitmap[] flyingBird;
     Bitmap upTube;
     Bitmap downTube;
+    Bitmap upColoredTube, downColoredTube;
 
     public BitmapControl(Resources res)
     {
@@ -23,6 +24,18 @@ public class BitmapControl
 
         upTube = BitmapFactory.decodeResource(res, R.drawable.up_tube);
         downTube = BitmapFactory.decodeResource(res, R.drawable.down_tube);
+        upColoredTube = BitmapFactory.decodeResource(res, R.drawable.colored_tube_up);
+        downColoredTube = BitmapFactory.decodeResource(res, R.drawable.colored_tube_bottom);
+    }
+
+    public Bitmap getUpColoredTube()
+    {
+        return upColoredTube;
+    }
+
+    public Bitmap getDownColoredTube()
+    {
+        return downColoredTube;
     }
 
     public Bitmap getUpTube()
